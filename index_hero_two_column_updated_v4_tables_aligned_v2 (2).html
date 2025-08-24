@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Masjid Ibn Abass</title>
+  <meta name="description" content="Masjid Ibn Abass — prayer times, classes, events, and donations." />
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#0ea5e9' },
+            darkbg: '#0b1324',
+          },
+          fontFamily: {
+            sans: ['ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol']
+          },
+          boxShadow: {
+            soft: '0 10px 25px rgba(0,0,0,.08)'
+          }
+        }
+      },
+      darkMode: 'class'
+    };
+  </script>
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+
+  <style>
+    .hero-grad{ background: radial-gradient(1000px 600px at 20% 10%, rgba(14,165,233,.15), transparent), radial-gradient(900px 600px at 80% 20%, rgba(99,102,241,.15), transparent); }
+    .glass{ background: rgba(255,255,255,0.65); backdrop-filter: blur(8px); }
+    .dark .glass{ background: rgba(17,24,39,0.55); }
+    table.prayer-table th, table.prayer-table td { padding: .6rem .6rem; } @media (min-width: 640px) { table.prayer-table th, table.prayer-table td { padding: .9rem 1rem; } }
+  </style>
+</head>
+
+<body class="font-sans text-slate-800 dark:bg-darkbg dark:text-slate-100">
+  <!-- Top bar -->
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/70 backdrop-blur border-b border-slate-200/60 dark:border-slate-700/60">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between flex-row-reverse">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+          <i class="ri-moon-fill text-primary text-xl"></i>
+        </div>
+        <div class="leading-tight text-right">
+          <div class="text-base font-bold tracking-wide">Masjid Ibn Abass</div>
+          <div class="text-xs text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Faith • Knowledge • Community</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#prayer" class="hover:text-primary">Prayer Times</a>
+        <a href="#weekly-classes" class="hover:text-primary">Classes</a>
+        <a href="#donate" class="hover:text-primary">Donate</a>
+        <a href="#contact" class="hover:text-primary">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        
+        <button id="themeToggle" class="inline-flex items-center justify-center rounded-xl border border-slate-300/70 dark:border-slate-700 px-4 py-3 text-base hover:bg-slate-50 dark:hover:bg-slate-800">
+          <i class="ri-sun-line hidden dark:inline text-lg"></i>
+          <i class="ri-moon-line inline dark:hidden text-lg"></i>
+        </button>
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-300/70 dark:border-slate-700 px-4 py-3 text-2xl">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-700 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+      <nav class="px-4 py-3 flex flex-col gap-3 text-sm">
+        <a href="#prayer" class="hover:text-primary">Prayer Times</a>
+        <a href="#weekly-classes" class="hover:text-primary">Classes</a>
+        <a href="#donate" class="hover:text-primary">Donate</a>
+        <a href="#contact" class="hover:text-primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  
+  <section class="relative hero-grad">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-sky-50 to-white dark:from-slate-900 dark:to-darkbg"></div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+      <div class="grid lg:grid-cols-2 gap-8 sm:gap-10 items-center">
+        <!-- Left: Logo -->
+        <div class="flex items-center justify-center">
+          <img src="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAFAAUADASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAYHBAUIAwIB/8QASRAAAQMDAgMFBgMEBgkCBwAAAQACAwQFEQYhBxIxE0FRYYEIFCIycZEVQqFSYoKxIzNykrLBFhckJTdDdKLRU8ImOFRzdXbw/8QAGQEBAAMBAQAAAAAAAAAAAAAAAAIDBAEF/8QALxEAAgIBAwIFAgUFAQAAAAAAAAECAxESITEEQRMiUWFxMrEjgaHB8BQzkdHh8f/aAAwDAQACEQMRAD8A6pREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREARMplAETKZQBEymUARMplAETKZQBEymUARMplAETKZQBEymUARMplAETKZQBEymUARMplAETKZQBEymUARMplAETKZQBEymUARMplAETKZQH4iIgCIiAIiIAiIgCIiAIiIAiIgCL8ysGvu9vt7Sa2sghx3OeM/bqoykorMng6k3sjPTKhNfxFtMWW0MVTXPH/pMw37laCXWOqrtI6K0WqOmH7TsvcM+OOiyz66pbReX7F8elslu1he5aqLX2KKshtNLHc5hNWtYO1eBjmctgtcXlZKGsPARMounAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIvCtqG0tLJO9rnBgzysGSfILjaSywlnY918ve1jC97g1o3LicAKvrnq+6TSmCghp6Vx6BxM8x+jG9FrH6S1BqFwfdKyoZEd/wDaX4+0bf8AMhYf67W8Uxcv0Rq/pXHeySj9yY3PWlkoXmMVQqZgcdnTjnOfr0H3UYreIlTP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" alt="Masjid Ibn Abass Logo" class="max-h-80 w-full sm:w-auto object-contain p-2">
+        </div>
+
+        <!-- Right: Welcome text + buttons -->
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">Welcome to <span class="text-primary">Masjid Ibn Abass</span></h1>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300">This masjid is upon the Qur’an and the Sunnah, according to the understanding of the Salaf.</p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#prayer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 dark:bg-white px-4 py-3 text-white dark:text-slate-900 shadow-soft hover:opacity-90 w-full sm:w-auto">
+              <i class="ri-time-line"></i><span>See Prayer Times</span>
+            </a>
+            <a href="https://t.me/yourtelegramlink" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300/70 dark:border-slate-700 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 w-full sm:w-auto"><i class="ri-telegram-line text-lg"></i><span>Join Us on Telegram</span></a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prayer times -->
+  <section id="prayer" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <h2 class="text-3xl font-bold tracking-tight">Prayer Times</h2>
+          <div class="mt-1 text-sm text-slate-500 dark:text-slate-400 flex flex-wrap gap-3 items-center">
+            <span>Today: <span id="greg" class="font-medium">—</span></span>
+            <span class="hidden sm:inline">•</span>
+            <span>Hijri: <span id="hijri" class="font-medium">—</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next prayer -->
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-soft flex items-center justify-between">
+          <div>
+            <div class="text-sm uppercase tracking-widest text-slate-500 dark:text-slate-400">Next Prayer</div>
+            <div class="mt-1 text-2xl font-bold" id="nextLabel">—</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm uppercase tracking-widest text-slate-500 dark:text-slate-400">Starts In</div>
+            <div class="mt-1 text-2xl font-bold" id="countdown">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 shadow-soft bg-white/90 dark:bg-slate-900/60">
+        <table class="min-w-full min-w-[560px] table-fixed prayer-table">
+          <colgroup>
+            <col span="1" style="width:33.333%">
+            <col span="1" style="width:33.333%">
+            <col span="1" style="width:33.333%">
+          </colgroup>
+          <thead class="text-sky-900 dark:text-sky-200 bg-sky-100/80 dark:bg-slate-800/70 border-b border-sky-300 dark:border-slate-700 uppercase tracking-wider">
+            <tr>
+              <th class="whitespace-nowrap text-sm sm:text-base font-semibold px-4 py-3 md:px-5 md:py-3 text-left align-middle">Prayer</th>
+              <th class="whitespace-nowrap text-sm sm:text-base font-semibold px-4 py-3 md:px-5 md:py-3 text-left align-middle">Adhan</th>
+              <th class="whitespace-nowrap text-sm sm:text-base font-semibold px-4 py-3 md:px-5 md:py-3 text-left align-middle">Iqaamah</th>
+            </tr>
+          </thead>
+          <tbody class="text-base">
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Fajr</td>
+              <td id="adhan-fajr">—</td>
+              <td id="iqamah-fajr">—</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Dhuhr</td>
+              <td id="adhan-dhuhr">—</td>
+              <td id="iqamah-dhuhr">—</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Asr</td>
+              <td id="adhan-asr">—</td>
+              <td id="iqamah-asr">—</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Maghrib</td>
+              <td id="adhan-maghrib">—</td>
+              <td id="iqamah-maghrib">—</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Isha</td>
+              <td id="adhan-isha">—</td>
+              <td id="iqamah-isha">—</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Jummah</td>
+              <td id="adhan-jummah">1:00 PM</td>
+              <td id="iqamah-jummah">1:30 PM (after Khutbah)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 text-sm text-slate-600 dark:text-slate-300">
+        These are <em>adhan</em> times (calculation-based). Iqaamah times are set by the masjid.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Weekly Class Timetable -->
+  <section id="weekly-classes" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl font-bold tracking-tight">Weekly Class Timetable</h2>
+        <p class="mt-2 text-slate-600 dark:text-slate-300">
+          All classes are held after <span class="font-semibold">Maghrib</span> prayer, <em>in shaa Allah</em>:
+        </p>
+      </div>
+
+      <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 shadow-soft bg-white/90 dark:bg-slate-900/60">
+        <table class="min-w-full min-w-[420px] table-fixed">
+          <colgroup>
+            <col span="1" style="width:35%">
+            <col span="1" style="width:65%">
+          </colgroup>
+          <thead class="text-sky-900 dark:text-sky-200 bg-sky-100/80 dark:bg-slate-800/70 border-b border-sky-300 dark:border-slate-700 uppercase tracking-wider">
+            <tr>
+              <th class="whitespace-nowrap text-sm sm:text-base font-semibold px-4 py-3 md:px-5 md:py-3 text-left align-middle">Day</th>
+              <th class="whitespace-nowrap text-sm sm:text-base font-semibold px-4 py-3 md:px-5 md:py-3 text-left align-middle">Book / Topic</th>
+            </tr>
+          </thead>
+          <tbody class="text-base">
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Monday</td>
+              <td class="px-4 py-3 px-4 py-3 md:px-5 md:py-3 text-left align-middle">The Hadith of Jabreel</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Wednesday</td>
+              <td class="px-4 py-3 px-4 py-3 md:px-5 md:py-3 text-left align-middle">The Hadith of Jabreel</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Friday</td>
+              <td class="px-4 py-3 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Removal of Doubts</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Saturday</td>
+              <td class="px-4 py-3 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Forty Hadith</td>
+            </tr>
+            <tr class="border-t border-slate-200/70 dark:border-slate-700/60 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+              <td class="font-semibold text-sky-800 dark:text-sky-300 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Sunday</td>
+              <td class="px-4 py-3 px-4 py-3 md:px-5 md:py-3 text-left align-middle">Sharh as-Sunnah</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 text-slate-700 dark:text-slate-300 text-base flex flex-wrap items-center gap-2">
+        <i class="ri-live-line text-xl"></i>
+        <span>Listen live:</span>
+        <a class="text-primary font-semibold hover:underline break-all" href="https://" target="_blank" rel="noopener"></a>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a href="https://" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white shadow-soft hover:brightness-110">
+            <i class="ri-live-line text-lg"></i><span>Listen Live</span>
+          </a>
+          <a href="https://t.me/s/masjidibnabbascpGA" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-xl border border-slate-300/70 dark:border-slate-700 px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-800">
+            <i class="ri-telegram-line text-lg"></i><span>Join Us on Telegram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Donate CTA -->
+  <section id="donate" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 shadow-soft bg-white/80 dark:bg-slate-900/60">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-3xl font-bold tracking-tight">Support the Masjid</h2>
+            <p class="mt-3 text-slate-600 dark:text-slate-300">
+              Your donations help us maintain the masjid, run educational programs,
+              and serve our community.
+            </p>
+            <ul class="mt-4 space-y-2 text-slate-700 dark:text-slate-300">
+              <li class="flex items-start gap-3"><i class="ri-check-line text-primary text-xl"></i><span>Zelle: <strong>findmasjidibnabbas@gmail.com</strong></span></li>
+              <li class="flex items-start gap-3"><i class="ri-check-line text-primary text-xl"></i><span>In-Person: Donation box at the masjid</span></li>
+            </ul>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white shadow-soft hover:brightness-110" href="mailto:findmasjidibnabbas@gmail.com?subject=Donation%20Inquiry">
+              <i class="ri-mail-send-line text-lg"></i><span>Email for Donation Receipt</span>
+            </a>
+            <a class="inline-flex items-center gap-2 rounded-xl border border-slate-300/70 dark:border-slate-700 px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-800" href="#contact">
+              <i class="ri-chat-1-line text-lg"></i><span>Contact Us</span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold tracking-tight">Contact Us</h2>
+      <form id="contact-form" action="https://formspree.io/f/xkgvwqrd" method="POST" class="mt-6 grid gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input class="w-full rounded-xl border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 outline-none focus:ring-2 focus:ring-primary" type="text" name="name" placeholder="Your Name" required>
+          <input class="w-full rounded-xl border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 outline-none focus:ring-2 focus:ring-primary" type="email" name="email" placeholder="Your Email" required>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input class="w-full rounded-xl border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 outline-none focus:ring-2 focus:ring-primary" type="tel" name="phone" placeholder="Your Phone (optional)">
+          <input class="w-full rounded-xl border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 outline-none focus:ring-2 focus:ring-primary" type="text" name="subject" placeholder="Subject (optional)">
+        </div>
+        <textarea class="w-full rounded-xl border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 outline-none focus:ring-2 focus:ring-primary" name="message" placeholder="Your Message" rows="6" required></textarea>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="_subject" value="New message from Masjid Ibn Abass website">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <button id="contact-submit" type="submit" class="relative inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 dark:bg-white px-5 py-3 text-white dark:text-slate-900 shadow-soft hover:opacity-90">
+          <span class="btn-text">Send Message</span>
+          <span class="btn-spinner hidden" aria-hidden="true">...</span>
+        </button>
+
+        <div id="contact-status" aria-live="polite" class="text-sm"></div>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- Location Map -->
+  <section id="location" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold tracking-tight mb-6">Our Location</h2>
+      <div class="rounded-2xl overflow-hidden shadow-soft border border-slate-200 dark:border-slate-700">
+        <iframe
+          class="w-full h-96"
+          src="https://www.google.com/maps?q=2051%20Godby%20Rd%2C%20College%20Park%2C%20GA&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-700 odd:bg-sky-50/50 even:bg-white hover:bg-sky-100/60 dark:odd:bg-slate-800/40 dark:even:bg-slate-900/30 dark:hover:bg-slate-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-slate-500 dark:text-slate-400">&copy; <span id="year"></span> Masjid Ibn Abass. All rights reserved.</div>
+      <div class="flex items-center gap-4 text-lg">
+        <a class="hover:text-primary" href="#contact" title="Contact"><i class="ri-chat-1-line"></i></a>
+        <a class="hover:text-primary" href="#donate" title="Donate"><i class="ri-hand-heart-line"></i></a>
+        <a class="hover:text-primary" href="#prayer" title="Prayer Times"><i class="ri-time-line"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Backend-configurable Iqaamah times -->
+  <script>
+    window.PRAYER_CONFIG = {
+      method: 2, // ISNA
+      school: 0, // Shafi
+      iqamahText: {
+        Fajr: "6:10 AM",
+        Dhuhr: "2:00 PM",
+        Asr: "5:45 PM",
+        Maghrib: "+5 min",
+        Isha: "9:50 PM",
+        Jumuah: "1:30 PM (after Khutbah)"
+      },
+      jummahAdhan: "1:00 PM"
+    };
+  </script>
+
+  <!-- Scripts -->
+  <script>
+    // Theme & nav
+    const themeBtn = document.getElementById('themeToggle');
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    themeBtn?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form
+    (function(){
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      var submitBtn = document.getElementById('contact-submit');
+      var statusEl = document.getElementById('contact-status');
+      var spinner = submitBtn.querySelector('.btn-spinner');
+      var btnText = submitBtn.querySelector('.btn-text');
+      function setStatus(msg, ok){
+        statusEl.textContent = msg;
+        statusEl.className = "mt-3 px-4 py-3 rounded-xl border text-sm " + (ok
+          ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/30 dark:border-emerald-800 dark:text-emerald-200"
+          : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-900/30 dark:border-rose-800 dark:text-rose-200");
+      }
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        submitBtn.disabled = true;
+        spinner.classList.remove('hidden');
+        btnText.textContent = 'Sending...';
+        statusEl.textContent = '';
+        var data = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        }).then(function(resp){
+          if (resp.ok){
+            setStatus('Thank you! Your message has been sent.', true);
+            form.reset();
+          } else {
+            return resp.json().then(function(j){
+              throw new Error((j && j.error) || 'Something went wrong. Please try again.');
+            });
+          }
+        }).catch(function(err){
+          setStatus(err.message, false);
+        }).finally(function(){
+          submitBtn.disabled = false;
+          spinner.classList.add('hidden');
+          btnText.textContent = 'Send Message';
+        });
+      });
+    })();
+
+    /* -------- Prayer Times (Aladhan API) + Table -------- */
+    const ADDRESS = "2051 Godby Rd, College Park, GA";
+    const cfg = window.PRAYER_CONFIG || {};
+    const METHOD = Number(cfg.method ?? 2);
+    const SCHOOL = Number(cfg.school ?? 0);
+    const I_TEXT = Object.assign({ Fajr: "+15 min", Dhuhr: "02:00 PM", Asr: "+15 min", Maghrib: "+5 min", Isha: "+15 min", Jumuah: "1:30 PM (after Khutbah)" }, cfg.iqamahText || {});
+    const JUM_ADHAN = cfg.jummahAdhan || "1:00 PM";
+
+    function fmt12h(h, m){
+      h = Number(h); m = Number(m);
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12; if (h === 0) h = 12;
+      const mm = String(m).padStart(2,'0');
+      return `${h}:${mm} ${ampm}`;
+    }
+    function cleanTime(s){ return String(s || '').replace(/[^0-9:]/g,''); }
+    function toDisplay(timeStr){
+      const [h,m] = cleanTime(timeStr).split(':').map(Number);
+      if (Number.isFinite(h) && Number.isFinite(m)) return fmt12h(h,m);
+      return timeStr || '—';
+    }
+    function parseTimeToDate(timeStr){
+      const [h, m] = cleanTime(timeStr).split(':').map(Number);
+      const dt = new Date();
+      dt.setHours(h || 0, m || 0, 0, 0);
+      return dt;
+    }
+
+    function startCountdown(timings){
+      const order = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+      function pickNext(){
+        const now = new Date();
+        let nextName = null, nextDate = null;
+        for (const name of order){
+          const dt = parseTimeToDate(timings[name]);
+          if (dt > now){ nextName = name; nextDate = dt; break; }
+        }
+        if (!nextName){
+          nextName = 'Fajr';
+          nextDate = parseTimeToDate(timings['Fajr']);
+          nextDate.setDate(nextDate.getDate() + 1);
+          document.getElementById('nextLabel').textContent = `${nextName} (tomorrow)`;
+        } else {
+          document.getElementById('nextLabel').textContent = nextName;
+        }
+        function update(){
+          const now2 = new Date();
+          const diff = nextDate - now2;
+          if (diff <= 0){ loadPrayerTimes(); return; }
+          const h = Math.floor(diff / 3600000);
+          const m = Math.floor((diff % 3600000) / 60000);
+          const s = Math.floor((diff % 60000) / 1000);
+          document.getElementById('countdown').textContent = `${h}h ${m}m ${s}s`;
+        }
+        update();
+        clearInterval(window._cdInt);
+        window._cdInt = setInterval(update, 1000);
+      }
+      pickNext();
+    }
+
+    async function loadPrayerTimes(date = new Date()){
+      const y = date.getFullYear();
+      const m = date.getMonth() + 1;
+      const d = date.getDate();
+
+      const byAddress = `https://api.aladhan.com/v1/timingsByAddress/${d}-${m}-${y}?address=${encodeURIComponent(ADDRESS)}&method=${METHOD}&school=${SCHOOL}`;
+      const byCity = `https://api.aladhan.com/v1/timingsByCity/${d}-${m}-${y}?city=College%20Park&state=GA&country=US&method=${METHOD}&school=${SCHOOL}`;
+
+      let data = null;
+      try {
+        const r1 = await fetch(byAddress);
+        if (!r1.ok) throw new Error('timingsByAddress unavailable');
+        const j1 = await r1.json();
+        if (j1.code !== 200) throw new Error(j1.data || 'API error');
+        data = j1.data;
+      } catch (e){
+        const r2 = await fetch(byCity);
+        const j2 = await r2.json();
+        data = j2.data;
+      }
+
+      if (!data) return;
+
+      const t = data.timings || {};
+
+      // Fill dates
+      try {
+        document.getElementById('hijri').textContent = `${data.date.hijri.weekday.en}, ${data.date.hijri.day} ${data.date.hijri.month.en} ${data.date.hijri.year} AH`;
+        document.getElementById('greg').textContent = data.date.readable;
+      } catch(e) {}
+
+      // Fill Adhan cells (12-hour)
+      const map = {
+        'adhan-fajr': t.Fajr,
+        'adhan-dhuhr': t.Dhuhr,
+        'adhan-asr': t.Asr,
+        'adhan-maghrib': t.Maghrib,
+        'adhan-isha': t.Isha
+      };
+      Object.entries(map).forEach(([id, val]) => {
+        document.getElementById(id).textContent = toDisplay(val);
+      });
+
+      // Set fixed Jummah adhan from config
+      document.getElementById('adhan-jummah').textContent = JUM_ADHAN;
+
+      // Iqaamah text from config
+      document.getElementById('iqamah-fajr').textContent = I_TEXT.Fajr;
+      document.getElementById('iqamah-dhuhr').textContent = I_TEXT.Dhuhr;
+      document.getElementById('iqamah-asr').textContent = I_TEXT.Asr;
+      document.getElementById('iqamah-maghrib').textContent = I_TEXT.Maghrib;
+      document.getElementById('iqamah-isha').textContent = I_TEXT.Isha;
+      document.getElementById('iqamah-jummah').textContent = I_TEXT.Jumuah;
+
+      // Start countdown
+      startCountdown(t);
+    }
+
+    loadPrayerTimes();
+  </script>
+</body>
+</html>
